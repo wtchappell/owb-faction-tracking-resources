@@ -1,0 +1,47 @@
+on_actions = {
+  on_offer_join_faction = {
+    effect = {
+      if = {
+        limit = {
+          FROM = {
+            is_western_enclave_member = yes
+          }
+        }
+        mark_as_western_enclave_member = yes
+      }
+    }
+  }
+
+  on_leave_faction = {
+    effect = {
+      if = {
+        limit = {
+          is_western_enclave_member = yes
+        }
+        unmark_as_western_enclave_member = yes
+      }
+    }
+  }
+
+  on_puppet = {
+    effect = {
+      if = {
+        limit = {
+          FROM = { is_western_enclave_member = yes }
+        }
+      }
+      mark_as_western_enclave_member = yes
+    }
+  }
+
+  on_release_as_puppet = {
+    effect = {
+      if = {
+        limit = {
+          FROM = { is_western_enclave_member = yes }
+        }
+      }
+      mark_as_western_enclave_member = yes
+    }
+  }
+}

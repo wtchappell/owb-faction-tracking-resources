@@ -1,0 +1,24 @@
+is_mormon_alliance_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "NCN"
+    compare = equals
+  }
+}
+
+is_mormon_alliance_leader = {
+  is_mormon_alliance_member = yes
+  is_faction_leader = yes
+}
+
+is_not_mormon_alliance_member = {
+  NOT = { is_mormon_alliance_member = yes }
+}
+
+mormon_alliance_exists = {
+  any_country = {
+    is_mormon_alliance_member = yes
+    is_faction_leader = yes
+  }
+}

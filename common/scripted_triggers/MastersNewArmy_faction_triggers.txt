@@ -1,0 +1,24 @@
+is_masters_new_army_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "TRL"
+    compare = equals
+  }
+}
+
+is_masters_new_army_leader = {
+  is_masters_new_army_member = yes
+  is_faction_leader = yes
+}
+
+is_not_masters_new_army_member = {
+  NOT = { is_masters_new_army_member = yes }
+}
+
+masters_new_army_exists = {
+  any_country = {
+    is_masters_new_army_member = yes
+    is_faction_leader = yes
+  }
+}

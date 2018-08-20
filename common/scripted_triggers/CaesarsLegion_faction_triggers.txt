@@ -1,0 +1,24 @@
+is_caesars_legion_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "CES"
+    compare = equals
+  }
+}
+
+is_caesars_legion_leader = {
+  is_caesars_legion_member = yes
+  is_faction_leader = yes
+}
+
+is_not_caesars_legion_member = {
+  NOT = { is_caesars_legion_member = yes }
+}
+
+caesars_legion_exists = {
+  any_country = {
+    is_caesars_legion_member = yes
+    is_faction_leader = yes
+  }
+}

@@ -1,0 +1,47 @@
+on_actions = {
+  on_offer_join_faction = {
+    effect = {
+      if = {
+        limit = {
+          FROM = {
+            is_<%= snake_cased_faction_name %>_member = yes
+          }
+        }
+        mark_as_<%= snake_cased_faction_name %>_member = yes
+      }
+    }
+  }
+
+  on_leave_faction = {
+    effect = {
+      if = {
+        limit = {
+          is_<%= snake_cased_faction_name %>_member = yes
+        }
+        unmark_as_<%= snake_cased_faction_name %>_member = yes
+      }
+    }
+  }
+
+  on_puppet = {
+    effect = {
+      if = {
+        limit = {
+          FROM = { is_<%= snake_cased_faction_name %>_member = yes }
+        }
+      }
+      mark_as_<%= snake_cased_faction_name %>_member = yes
+    }
+  }
+
+  on_release_as_puppet = {
+    effect = {
+      if = {
+        limit = {
+          FROM = { is_<%= snake_cased_faction_name %>_member = yes }
+        }
+      }
+      mark_as_<%= snake_cased_faction_name %>_member = yes
+    }
+  }
+}

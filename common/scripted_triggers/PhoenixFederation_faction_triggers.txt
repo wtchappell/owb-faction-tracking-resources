@@ -1,0 +1,24 @@
+is_phoenix_federation_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "PHR"
+    compare = equals
+  }
+}
+
+is_phoenix_federation_leader = {
+  is_phoenix_federation_member = yes
+  is_faction_leader = yes
+}
+
+is_not_phoenix_federation_member = {
+  NOT = { is_phoenix_federation_member = yes }
+}
+
+phoenix_federation_exists = {
+  any_country = {
+    is_phoenix_federation_member = yes
+    is_faction_leader = yes
+  }
+}

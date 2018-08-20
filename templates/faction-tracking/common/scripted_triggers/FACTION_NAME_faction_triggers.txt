@@ -1,0 +1,24 @@
+is_<%= snake_cased_faction_name %>_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "<%= faction_tag %>"
+    compare = equals
+  }
+}
+
+is_<%= snake_cased_faction_name %>_leader = {
+  is_<%= snake_cased_faction_name %>_member = yes
+  is_faction_leader = yes
+}
+
+is_not_<%= snake_cased_faction_name %>_member = {
+  NOT = { is_<%= snake_cased_faction_name %>_member = yes }
+}
+
+<%= snake_cased_faction_name %>_exists = {
+  any_country = {
+    is_<%= snake_cased_faction_name %>_member = yes
+    is_faction_leader = yes
+  }
+}

@@ -1,0 +1,24 @@
+is_northern_league_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "WBH"
+    compare = equals
+  }
+}
+
+is_northern_league_leader = {
+  is_northern_league_member = yes
+  is_faction_leader = yes
+}
+
+is_not_northern_league_member = {
+  NOT = { is_northern_league_member = yes }
+}
+
+northern_league_exists = {
+  any_country = {
+    is_northern_league_member = yes
+    is_faction_leader = yes
+  }
+}

@@ -1,0 +1,24 @@
+is_nevada_pact_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "DES"
+    compare = equals
+  }
+}
+
+is_nevada_pact_leader = {
+  is_nevada_pact_member = yes
+  is_faction_leader = yes
+}
+
+is_not_nevada_pact_member = {
+  NOT = { is_nevada_pact_member = yes }
+}
+
+nevada_pact_exists = {
+  any_country = {
+    is_nevada_pact_member = yes
+    is_faction_leader = yes
+  }
+}

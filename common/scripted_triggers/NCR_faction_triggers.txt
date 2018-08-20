@@ -1,0 +1,24 @@
+is_ncr_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "NCR"
+    compare = equals
+  }
+}
+
+is_ncr_leader = {
+  is_ncr_member = yes
+  is_faction_leader = yes
+}
+
+is_not_ncr_member = {
+  NOT = { is_ncr_member = yes }
+}
+
+ncr_exists = {
+  any_country = {
+    is_ncr_member = yes
+    is_faction_leader = yes
+  }
+}

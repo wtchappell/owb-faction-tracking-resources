@@ -1,0 +1,88 @@
+join_the_<%= snake_cased_faction_name %> = {
+  if = {
+    limit = { is_<%= snake_cased_faction_name %>_member = no }
+    every_country = {
+      limit = {
+        is_<%= snake_cased_faction_name %>_member = yes
+        is_faction_leader = yes
+      }
+      add_to_faction = ROOT
+    }
+    mark_as_<%= snake_cased_faction_name %>_member = yes
+  }
+}
+
+mark_as_<%= snake_cased_faction_name %>_member = {
+  if = {
+    limit = { is_<%= snake_cased_faction_name %>_member = no }
+    set_variable = { current_faction = "<%= faction_tag %>" }
+    add_<%= snake_cased_faction_name %>_ally_strategies = yes
+
+    every_country = {
+      limit = {
+        is_in_faction_with = ROOT
+        is_puppet = yes
+        OVERLORD = {
+          tag = ROOT
+        }
+      }
+      mark_as_<%= snake_cased_faction_name %>_member = yes
+    }
+  }
+}
+
+unmark_as_<%= snake_cased_faction_name %>_member = {
+  if = {
+    limit = { is_<%= snake_cased_faction_name %>_member = yes }
+    clear_variable = current_faction
+
+    every_country = {
+      limit = {
+        is_in_faction_with = ROOT
+        is_puppet = yes
+        OVERLORD = {
+          tag = ROOT
+        }
+      }
+      unmark_as_<%= snake_cased_faction_name %>_member = yes
+    }
+  }
+}
+
+add_<%= snake_cased_faction_name %>_ally_strategies = {
+  hidden_effect = {
+    every_country = {
+      limit = { is_<%= snake_cased_faction_name %>_member = yes }
+      add_ai_strategy = {
+        type = alliance
+        id = ROOT
+        value = 200
+      }
+      ROOT = {
+        add_ai_strategy = {
+          type = alliance
+          id = PREV
+          value = 200
+        }
+      }
+    }
+  }
+}
+
+remove_<%= snake_cased_faction_name %>_ally_strategies = {
+  every_country = {
+    limit = { is_<%= snake_cased_faction_name %>_member = yes }
+    add_ai_strategy = {
+      type = alliance
+      id = ROOT
+      value = -200
+    }
+    ROOT = {
+      add_ai_strategy = {
+        type = alliance
+        id = PREV
+        value = -200
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+require 'erb'
+require 'fileutils'
+require 'find'
+require 'pathname'
+
+MOD_ROOT = Pathname.new(__dir__).parent
+TEMPLATE_ROOT = MOD_ROOT.join('templates')
+FACTION_TEMPLATE_ROOT = TEMPLATE_ROOT.join('faction-tracking')
+
+fail("You must specify a faction name and tag for tracking.") if ARGV.size < 2
+
+faction_name = ARGV[0]
+camel_cased_faction_name = faction_name.split(' ').map { |piece| piece =~ /^[A-Z]/ ? piece : piece.capitalize }.join('')
+snake_cased_faction_name = faction_name.downcase.split(' ').join('_')
+faction_tag  = ARGV[1]
+
+Find.find(FACTION_TEMPLATE_ROOT) do |path|
+  path = Pathname.new(path)
+  next if path.directory?
+  template = path.read
+  template_path_parts = path.each_filename.to_a
+  root_path_parts = FACTION_TEMPLATE_ROOT.each_filename.to_a
+  relative_path = File.join(template_path_parts - root_path_parts)
+  relative_path = Pathname.new(relative_path)
+  basename = relative_path.basename.sub('FACTION_NAME', camel_cased_faction_name)
+  relative_path = relative_path.parent.join(basename)
+  new_path = MOD_ROOT.join(relative_path)
+  if new_path.exist?
+    backup_path = new_path.parent.join("#{basename}-#{Time.now.to_i}.bak")
+    $stderr.puts "Backing up existing version of #{new_path} to #{backup_path}..."
+    FileUtils.mv(new_path, backup_path)
+  end
+  new_path.write(ERB.new(template).result(binding))
+end
+
+# vim: set ft=ruby ts=2 sw=2 tw=79 :

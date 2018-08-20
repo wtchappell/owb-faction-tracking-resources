@@ -1,0 +1,24 @@
+is_boneyard_brotherhood_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "BON"
+    compare = equals
+  }
+}
+
+is_boneyard_brotherhood_leader = {
+  is_boneyard_brotherhood_member = yes
+  is_faction_leader = yes
+}
+
+is_not_boneyard_brotherhood_member = {
+  NOT = { is_boneyard_brotherhood_member = yes }
+}
+
+boneyard_brotherhood_exists = {
+  any_country = {
+    is_boneyard_brotherhood_member = yes
+    is_faction_leader = yes
+  }
+}

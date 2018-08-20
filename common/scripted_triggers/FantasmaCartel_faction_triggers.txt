@@ -1,0 +1,24 @@
+is_fantasma_cartel_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "BVC"
+    compare = equals
+  }
+}
+
+is_fantasma_cartel_leader = {
+  is_fantasma_cartel_member = yes
+  is_faction_leader = yes
+}
+
+is_not_fantasma_cartel_member = {
+  NOT = { is_fantasma_cartel_member = yes }
+}
+
+fantasma_cartel_exists = {
+  any_country = {
+    is_fantasma_cartel_member = yes
+    is_faction_leader = yes
+  }
+}

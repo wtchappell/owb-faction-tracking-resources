@@ -1,0 +1,24 @@
+is_brotherhood_of_steel_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "BOS"
+    compare = equals
+  }
+}
+
+is_brotherhood_of_steel_leader = {
+  is_brotherhood_of_steel_member = yes
+  is_faction_leader = yes
+}
+
+is_not_brotherhood_of_steel_member = {
+  NOT = { is_brotherhood_of_steel_member = yes }
+}
+
+brotherhood_of_steel_exists = {
+  any_country = {
+    is_brotherhood_of_steel_member = yes
+    is_faction_leader = yes
+  }
+}

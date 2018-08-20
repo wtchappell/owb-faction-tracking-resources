@@ -1,0 +1,24 @@
+is_nevada_enclave_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "NEW"
+    compare = equals
+  }
+}
+
+is_nevada_enclave_leader = {
+  is_nevada_enclave_member = yes
+  is_faction_leader = yes
+}
+
+is_not_nevada_enclave_member = {
+  NOT = { is_nevada_enclave_member = yes }
+}
+
+nevada_enclave_exists = {
+  any_country = {
+    is_nevada_enclave_member = yes
+    is_faction_leader = yes
+  }
+}

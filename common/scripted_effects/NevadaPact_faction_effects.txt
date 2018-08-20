@@ -1,0 +1,88 @@
+join_the_nevada_pact = {
+  if = {
+    limit = { is_nevada_pact_member = no }
+    every_country = {
+      limit = {
+        is_nevada_pact_member = yes
+        is_faction_leader = yes
+      }
+      add_to_faction = ROOT
+    }
+    mark_as_nevada_pact_member = yes
+  }
+}
+
+mark_as_nevada_pact_member = {
+  if = {
+    limit = { is_nevada_pact_member = no }
+    set_variable = { current_faction = "DES" }
+    add_nevada_pact_ally_strategies = yes
+
+    every_country = {
+      limit = {
+        is_in_faction_with = ROOT
+        is_puppet = yes
+        OVERLORD = {
+          tag = ROOT
+        }
+      }
+      mark_as_nevada_pact_member = yes
+    }
+  }
+}
+
+unmark_as_nevada_pact_member = {
+  if = {
+    limit = { is_nevada_pact_member = yes }
+    clear_variable = current_faction
+
+    every_country = {
+      limit = {
+        is_in_faction_with = ROOT
+        is_puppet = yes
+        OVERLORD = {
+          tag = ROOT
+        }
+      }
+      unmark_as_nevada_pact_member = yes
+    }
+  }
+}
+
+add_nevada_pact_ally_strategies = {
+  hidden_effect = {
+    every_country = {
+      limit = { is_nevada_pact_member = yes }
+      add_ai_strategy = {
+        type = alliance
+        id = ROOT
+        value = 200
+      }
+      ROOT = {
+        add_ai_strategy = {
+          type = alliance
+          id = PREV
+          value = 200
+        }
+      }
+    }
+  }
+}
+
+remove_nevada_pact_ally_strategies = {
+  every_country = {
+    limit = { is_nevada_pact_member = yes }
+    add_ai_strategy = {
+      type = alliance
+      id = ROOT
+      value = -200
+    }
+    ROOT = {
+      add_ai_strategy = {
+        type = alliance
+        id = PREV
+        value = -200
+      }
+    }
+  }
+}

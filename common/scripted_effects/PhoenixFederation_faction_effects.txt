@@ -1,0 +1,88 @@
+join_the_phoenix_federation = {
+  if = {
+    limit = { is_phoenix_federation_member = no }
+    every_country = {
+      limit = {
+        is_phoenix_federation_member = yes
+        is_faction_leader = yes
+      }
+      add_to_faction = ROOT
+    }
+    mark_as_phoenix_federation_member = yes
+  }
+}
+
+mark_as_phoenix_federation_member = {
+  if = {
+    limit = { is_phoenix_federation_member = no }
+    set_variable = { current_faction = "PHR" }
+    add_phoenix_federation_ally_strategies = yes
+
+    every_country = {
+      limit = {
+        is_in_faction_with = ROOT
+        is_puppet = yes
+        OVERLORD = {
+          tag = ROOT
+        }
+      }
+      mark_as_phoenix_federation_member = yes
+    }
+  }
+}
+
+unmark_as_phoenix_federation_member = {
+  if = {
+    limit = { is_phoenix_federation_member = yes }
+    clear_variable = current_faction
+
+    every_country = {
+      limit = {
+        is_in_faction_with = ROOT
+        is_puppet = yes
+        OVERLORD = {
+          tag = ROOT
+        }
+      }
+      unmark_as_phoenix_federation_member = yes
+    }
+  }
+}
+
+add_phoenix_federation_ally_strategies = {
+  hidden_effect = {
+    every_country = {
+      limit = { is_phoenix_federation_member = yes }
+      add_ai_strategy = {
+        type = alliance
+        id = ROOT
+        value = 200
+      }
+      ROOT = {
+        add_ai_strategy = {
+          type = alliance
+          id = PREV
+          value = 200
+        }
+      }
+    }
+  }
+}
+
+remove_phoenix_federation_ally_strategies = {
+  every_country = {
+    limit = { is_phoenix_federation_member = yes }
+    add_ai_strategy = {
+      type = alliance
+      id = ROOT
+      value = -200
+    }
+    ROOT = {
+      add_ai_strategy = {
+        type = alliance
+        id = PREV
+        value = -200
+      }
+    }
+  }
+}

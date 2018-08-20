@@ -1,0 +1,24 @@
+is_children_of_the_gate_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "HEA"
+    compare = equals
+  }
+}
+
+is_children_of_the_gate_leader = {
+  is_children_of_the_gate_member = yes
+  is_faction_leader = yes
+}
+
+is_not_children_of_the_gate_member = {
+  NOT = { is_children_of_the_gate_member = yes }
+}
+
+children_of_the_gate_exists = {
+  any_country = {
+    is_children_of_the_gate_member = yes
+    is_faction_leader = yes
+  }
+}

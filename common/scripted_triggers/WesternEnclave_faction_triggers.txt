@@ -1,0 +1,24 @@
+is_western_enclave_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "ENC"
+    compare = equals
+  }
+}
+
+is_western_enclave_leader = {
+  is_western_enclave_member = yes
+  is_faction_leader = yes
+}
+
+is_not_western_enclave_member = {
+  NOT = { is_western_enclave_member = yes }
+}
+
+western_enclave_exists = {
+  any_country = {
+    is_western_enclave_member = yes
+    is_faction_leader = yes
+  }
+}

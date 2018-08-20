@@ -1,0 +1,24 @@
+is_mojave_alliance_member = {
+  has_variable = current_faction
+  check_variable = {
+    var     = current_faction
+    value   = "VEG"
+    compare = equals
+  }
+}
+
+is_mojave_alliance_leader = {
+  is_mojave_alliance_member = yes
+  is_faction_leader = yes
+}
+
+is_not_mojave_alliance_member = {
+  NOT = { is_mojave_alliance_member = yes }
+}
+
+mojave_alliance_exists = {
+  any_country = {
+    is_mojave_alliance_member = yes
+    is_faction_leader = yes
+  }
+}
